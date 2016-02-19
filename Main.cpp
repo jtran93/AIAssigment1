@@ -10,7 +10,7 @@ int main()
 	int sMax = 0, zMax = 0;
 	int sum = 0;
 	int numGen = 0;
-	int crossOverRate[] =  {0, 3, 5, 7, 9};
+	int crossOverRate[] =  {3, 5, 7, 9, 0};
 	int numGenPerRun [20];
 	
 	bool chromosomeFound = false;
@@ -33,10 +33,9 @@ int main()
 		//Loop for # of trials
 		for(int w = 0; w < 20; w++)
 		{	
-
-			rate = cross.crossoverSelection(crossOverRate[0]);
-			numGen = 0;
 			p = initialP;
+			rate = cross.crossoverSelection(p, crossOverRate[0]);
+			numGen = 0;
 			chromosomeFound = false;
 
 			std::cout<<"\n"<<"\n=========================\n";
@@ -47,9 +46,10 @@ int main()
 			{
 				std::cout<<"Generation #"<<numGen<<"\n";
 				population.printPopulation(p);
+				
 				if(w == 0)
 				{
-					if(crossOverRate[0] == 7)
+					if(crossOverRate[i] == 7)
 					{
 						if(sMax < 2)
 						{
@@ -58,7 +58,7 @@ int main()
 						}
 						sMax++;
 					}
-					if(crossOverRate[0] == 0)
+					if(crossOverRate[i] == 0)
 					{
 						if(zMax < 2)
 						{
@@ -80,9 +80,10 @@ int main()
 				//population.geneCount(p);
 				chromosomeFound = population.findChromosome(p);
 				numGen++;
-				
-				
 			}
+			
+			if(chromosomeFound == true)
+					std::cout<<"\nTrial #"<<w<<"\n";
 			
 			if(w == 18||w==19 && crossOverRate[i] == 7 || crossOverRate[i] == 0)
 			{

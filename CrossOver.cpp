@@ -1,31 +1,67 @@
 #include "CrossOver.h"
 
-std::vector<int> CrossOver::crossoverSelection(int crossOverRate)
+std::vector<int> CrossOver::crossoverSelection(std::vector< std::vector <int> > population, int crossOverRate)
 {
 	
-	
-	int rate = (20 - (20 - 2*crossOverRate ));
-	
-	for(int i = 0; i < 20; i++)
-	{ 
-		shuffler.push_back(i); 
-	}
-	
-	std::random_shuffle(shuffler.begin(), shuffler.end());
-	
-	for(int i = 0; i < (20 - rate); i++)
-	{
-		remainingPopulation.push_back(shuffler.front());
-		shuffler.erase(shuffler.begin()); 
-	}
+	int rate = 2*crossOverRate;
 
+	for(int i = 0; i < 20; i++)
+	{
+		remainingPopulation.push_back(i);
+	}
+	
+	std::vector<int> shuffler = CrossOver::geneCount(population, remainingPopulation, rate);
+
+	for(int i = 0; i < shuffler.size(); i++)
+	{
+		remainingPopulation.erase(std::remove(remainingPopulation.begin(), remainingPopulation.end(), shuffler[i]), remainingPopulation.end());
+	}
+	
 	return shuffler;
+}
+
+std::vector<int> CrossOver::geneCount(std::vector< std:: vector<int> > chromosomePopulation, std::vector<int> crossOverselector, int rate)
+{
+	highestChromosome.clear();
+
+	int counter = 0;
+	int highestFitnessValue = 0;
+	int tracker = 0;
+	
+	while(counter < rate)
+	{
+		for(int i = 0; i< 20; i++)
+		{
+			int fitnessValue = 0;
+			
+			for(int j = 0; j < 10; j++)
+			{
+				if(chromosomePopulation[crossOverselector[i]][j] == 1)
+				{
+				  fitnessValue++;
+				}
+			}
+			
+			if(highestFitnessValue <= fitnessValue && std::find(highestChromosome.begin(), highestChromosome.end(), i) == highestChromosome.end() && counter != rate)
+			{
+				highestFitnessValue = fitnessValue;
+				tracker = i;
+			}
+		}
+		highestChromosome.push_back(tracker);
+		counter++;
+		highestFitnessValue = 0;
+	}
+	
+	return highestChromosome;
 }
 
 std::vector< std::vector<int> > CrossOver::crossOver (std::vector< std::vector<int> > population, std::vector<int> crossOverselector)
 {
 	int m = 20, n = 10;
+	
 	newPopulation.resize(m);
+	
 	for(int i =0; i < m; i++)
 	{
 		newPopulation[i].resize(n);
@@ -135,9 +171,9 @@ void CrossOver::addToPopulationFromRemaining(std::vector< std::vector<int> > pop
 }
 
 void CrossOver::clearPopulation() {
-  newPopulation.clear();
-  remainingPopulation.clear();
-  shuffler.clear();
+	newPopulation.clear();
+	remainingPopulation.clear();
+	shuffler.clear();
 }
 
 
