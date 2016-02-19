@@ -21,7 +21,7 @@ class CrossOver
 		std::vector< std::vector<int> > newPopulation;
 		std::vector<int> remainingPopulation;
 		std::vector<int> shuffler;
-		std::vector<int> highestChromosome;
+		//std::vector<int> highestChromosome;
 		
 };
 #endif

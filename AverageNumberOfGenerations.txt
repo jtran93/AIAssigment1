@@ -1,0 +1,4 @@
+Average number of generations at PCO 3: 3796
+Average number of generations at PCO 5: 21935
+Average number of generations at PCO 7: 4086
+Average number of generations at PCO 9: 743

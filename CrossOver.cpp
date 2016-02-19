@@ -2,7 +2,6 @@
 
 std::vector<int> CrossOver::crossoverSelection(std::vector< std::vector <int> > population, int crossOverRate)
 {
-	
 	int rate = 2*crossOverRate;
 
 	for(int i = 0; i < 20; i++)
@@ -22,7 +21,7 @@ std::vector<int> CrossOver::crossoverSelection(std::vector< std::vector <int> > 
 
 std::vector<int> CrossOver::geneCount(std::vector< std:: vector<int> > chromosomePopulation, std::vector<int> crossOverselector, int rate)
 {
-	highestChromosome.clear();
+	std::vector<int> highestChromosome;
 
 	int counter = 0;
 	int highestFitnessValue = 0;
@@ -86,16 +85,6 @@ std::vector< std::vector<int> > CrossOver::crossOver (std::vector< std::vector<i
 	
 	CrossOver::addToPopulationFromRemaining(population, counter);
 	
-	/*for (int i = 0; i < 20; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-		  std::cout << newPopulation[i][j];
-		}
-		
-		std::cout << std::endl;
-	}*/
-	
 	parentSelection.clear();
 	crossoverdeletable.clear();
 	sibling.clear();
@@ -146,16 +135,6 @@ int CrossOver::addToPopulationFromShuffler(int counter, std::vector< std::vector
 
 void CrossOver::addToPopulationFromRemaining(std::vector< std::vector<int> > population, int counter)
 {
-	/*for (int i = 0; i < remainingPopulation.size(); i++) 
-	{
-		std::cout<<i<<": ";
-		for ( int j = 0; j < 10; j++)
-		{
-			std::cout << population[remainingPopulation[i]][j];
-		}
-		std::cout << std::endl;
-	}*/
-	
 	for (int i = 0; i < remainingPopulation.size(); i++)
 	{
 		for(int j = 0; j < 10; j++)

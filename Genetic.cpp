@@ -129,14 +129,20 @@ void Genetic::printToFile(std::vector<std::vector<int> > &chromosomePopulation) 
 	outfile.close() ;
 }
 
-void Genetic::printAvg(double avgNumGenPerPCO[], int crossOverRate[])
+void Genetic::printAvg(int numGenPerRun[], int pco)
 {
 	std::ofstream outfile;
 	outfile.open("AverageNumberOfGenerations.txt", std::ios_base::app);
-	for(int i = 0; i<5; i++)
+	
+	int sum = 0;
+	
+	for(int i = 0; i<20; i++)
 	{
-		outfile<<"Average number of generations at PCO " <<crossOverRate[i]<<": "<<avgNumGenPerPCO[i]<<"\n";
+		sum = sum + numGenPerRun[i]; 
 	}
+	
+	outfile<<"Average number of generations at PCO " <<pco<<": "<<sum/20<<"\n";
+	
 	outfile.close();
 }
 

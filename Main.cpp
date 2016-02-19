@@ -4,7 +4,6 @@
 
 int main()
 {
-	srand(time(0));
 	
 	int i = 0;
 	int sMax = 0, zMax = 0;
@@ -25,27 +24,35 @@ int main()
 	Mutation mutation;
 	CrossOver cross;
 	
-	population.createInitialPopulation(p);
-	initialP = p;
+	population.createInitialPopulation(initialP);
+	p = initialP;
 	
+	//Loop for each PCO value
 	for(i = 0; i < 5; i++)
 	{
 		//Loop for # of trials
 		for(int w = 0; w < 20; w++)
 		{	
-			p = initialP;
-			rate = cross.crossoverSelection(p, crossOverRate[0]);
+			rate = cross.crossoverSelection(p, crossOverRate[i]);
 			numGen = 0;
+			p = initialP;
 			chromosomeFound = false;
 
 			std::cout<<"\n"<<"\n=========================\n";
 			std::cout<<"Trial #"<<w<<"\n";
 			std::cout<<"=========================\n";
 			
+			//Loop until perfect chromosome is found
 			while(chromosomeFound != true)
 			{
-				std::cout<<"Generation #"<<numGen<<"\n";
+				std::cout<<"PCO = "<<crossOverRate[i]<<" Generation #"<<numGen<<"\n";
 				population.printPopulation(p);
+				
+				secondLastP = p;
+				
+				p = cross.crossOver(p, rate);
+
+				p = mutation.generateMutation(p);
 				
 				if(w == 0)
 				{
@@ -53,7 +60,6 @@ int main()
 					{
 						if(sMax < 2)
 						{
-							//std::cout<<"Print to File\n";
 							population.printToFile(p);
 						}
 						sMax++;
@@ -62,22 +68,13 @@ int main()
 					{
 						if(zMax < 2)
 						{
-							//std::cout<<"Print to File\n";
 							population.printToFile(p);
 						}
 						zMax++;
 					}
 				}
 				
-				secondLastP = p;
-				
-				p = cross.crossOver(p, rate);
-				//std::cout<<"Generation #"<<numGen<<" after crossover\n";
-				
-				p = mutation.generateMutation(p);
-				//std::cout<<"Generation #"<<numGen<<" after mutation\n";
-				
-				//population.geneCount(p);
+
 				chromosomeFound = population.findChromosome(p);
 				numGen++;
 			}
@@ -96,10 +93,8 @@ int main()
 			std::cout<<"Number of generations: "<<numGen++;
 			numGenPerRun[w] = numGen;
 			
-			p.clear();
 			cross.clearPopulation();
 		}
-		
 		
 		for(int k = 0; k < 20; k++)
 		{
@@ -110,11 +105,11 @@ int main()
 		avgNumGenPerPCO[i] = sum / 20;
 		sum = 0;
 		population.printNumGen(numGenPerRun, crossOverRate[i]);
+		population.printAvg(numGenPerRun, crossOverRate[i]);
 	}
 	
 	for(int q = 0; q<5; q++)
-		std::cout<<"\nAverage number of generations per run at PCO "<<crossOverRate[q]<<" = "<<avgNumGenPerPCO[q];
-	population.printAvg(avgNumGenPerPCO, crossOverRate);
+		std::cout<<"\nAverage number of generations per run at PCO "<<crossOverRate[q]<<": "<<avgNumGenPerPCO[q];
 
 	return (0); 
 }

@@ -16,7 +16,7 @@ class Genetic {
 		bool findChromosome(std::vector< std::vector<int> > chromosomePopulation);
 		void printPopulation(std::vector< std::vector<int> > &chromosomePopulation);
 		void printToFile(std::vector<std::vector<int> > &chromosomePopulation);
-		void printAvg(double avgNumGenPerRun[], int crossOverRate[]);
+		void printAvg(int numGenPerRun[], int pco);
 		void printNumGen(int numGenPerRun[], int rate);
 	};
 #endif
