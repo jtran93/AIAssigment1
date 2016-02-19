@@ -145,12 +145,13 @@ void Genetic::printNumGen(int numGenPerRun[], int rate)
 	std::ofstream outfile;
 	outfile.open("NumberGenerationsPerRun.txt", std::ios_base::app);
 	
+	outfile<<"===================================\n";
+	outfile<<"PCO = "<<rate<<"\n";
+	outfile<<"===================================\n";
+	
 	for(int i = 0; i < 20; i++)
 	{
-		outfile<<"===================================\n";
-		outfile<<"PCO = "<<rate<<"\n";
-		outfile<<"===================================\n";
-		outfile<<"Run# "<<i<<numGenPerRun[i]<<"\n";
+		outfile<<"Run #"<<i<<": "<<numGenPerRun[i]<<"\n";
 	}
 	
 	outfile.close();
