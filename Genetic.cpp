@@ -110,7 +110,7 @@ void Genetic::printToFile(std::vector<std::vector<int> > &chromosomePopulation) 
 	int fitnessV = 0;
 	
 	std::ofstream outfile;
-	outfile.open("test.txt", std::ios_base::app);
+	outfile.open("1st_2nd_SecondToLast_Last_GenerationsPCO7_And_0.txt", std::ios_base::app);
 	outfile<<"==================================\n";
 	for( int i = 0; i < 20; i++)
 	{
