@@ -24,36 +24,6 @@ void Genetic::createInitialPopulation(std::vector< std::vector<int> > &chromosom
 	}
 
 }
-/*
-	Calculate fitness value of each chromosome.
-*/
-void Genetic::geneCount(std::vector< std:: vector<int> > chromosomePopulation)
-{
-	int m = 20, n = 10;
-	int b = 20;
-	int count[20];
-
-	for(int a = 0; a<b; a++)
-	{
-		count[a] = 0;
-	}
-
-	for(int i = 0; i < m; i++)
-	{		
-		for(int j =0; j<10; j++)
-		{	
-			if(chromosomePopulation[i][j] == 1)
-			{
-				count[i]++;
-			}
-		}
-	}
-
-	for(int c = 0; c < m; c++)
-	{
-		std::cout<<c<<": "<<count[c]<< "\n";
-	}
-}
 
 /*
 	Find chromosome with all 1s
